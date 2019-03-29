@@ -1,0 +1,137 @@
+<div class="ctn">
+  <h4>{{title1}}</h4>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">num</th>
+      <th scope="col">nom</th>
+      <th scope="col">prenom</th>
+      <th scope="col">age</th>
+      <th scope="col">emotion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table-active" *ngFor="let emp of  listeEmps ;let i=index">
+      <th scope="row">{{ i + 1}}</th>
+      <td>{{emp?.nom}}</td>
+      <td>{{emp?.prenom}}</td>
+      <td *ngIf="emp?.age != 0; else other" >{{emp?.age}}</td>
+      <td [ngSwitch]="emp?.emotion">
+        <span *ngSwitchCase="'happy'">(:</span>
+        <span *ngSwitchCase="'sad'">):</span>
+        <span *ngSwitchDefault>0_o</span>
+      </td>
+
+      <ng-template #other>
+        <td >l'age non rensigné</td>
+      </ng-template>
+    </tr>
+
+    </tbody>
+  </table>
+
+  <h4>{{title2}}</h4>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">num</th>
+      <th scope="col">nom</th>
+      <th scope="col">prenom</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="table" *ngFor="let emp of  listeEmps ;let i=index" [ngClass]="{
+      'table-success': emp?.age <= 20,
+      'table-danger': emp?.age > 20
+    }" >
+      <th scope="row">{{ i + 1}}</th>
+      <td [ngClass]="getColor(emp?.nom?.length)">{{emp?.nom}}</td>
+      <td [ngStyle]="{color: emp?.prenom?.length >4 ? 'red' : 'green' }" >{{emp?.prenom}}</td>
+
+    </tr>
+
+    </tbody>
+  </table>
+  <h4>{{title3}}</h4>
+  <h6>du controleur vers la template</h6>
+  <p>{{name}}</p>
+  <h6>de la template vers le controleur</h6>
+  <button type="button" class="btn btn-primary" (click)="onAction()">action</button>
+  <p>{{name}}</p>
+  <h6>sur lrs deux sens par [ngModel]</h6>
+  <div class="form-group">
+    <label class="col-form-label" for="inputDefault">Default input</label>
+    <input type="text" class="form-control" placeholder="Default input" id="inputDefault" [(ngModel)]="name">
+  </div>
+  <app-list-employe [list]="listeEmps"></app-list-employe>
+
+
+  <h4>{{title4}}</h4>
+  <h6>date pipe</h6>
+  <p>Aujourd'huit : <strong>{{toDay | date}}</strong></p><br>
+  <p>Aujourd'huit : <strong>{{toDay | date : "dd/mm/yy"}}</strong></p><br>
+  <p>Aujourd'huit : <strong>{{toDay | date : "'jour :'dd 'mois : ' MM 'année : ' yyyy "}}</strong></p><br>
+  <p>Aujourd'huit : <strong>{{toDay | date : "'jour :'dd 'mois : ' MM 'année : ' yyyy " | uppercase}}</strong></p><br>
+  <p>Aujourd'huit : <strong>{{toDay | date:'shortTime' }}</strong></p><br>
+
+  <h6>pipe personaliser</h6>
+  <p>MultiplicationPipe : multiplication entre valeur et pipe : <strong>{{ 2 | MultiplicationPipe : 3}}</strong></p>
+
+  <div class="form-group">
+    <label class="col-form-label" for="inputDefault">Default input</label>
+    <input type="text" class="form-control" placeholder="Default input" id="inputDefault1" [(ngModel)]="base">
+  </div>
+  <div class="form-group">
+    <label class="col-form-label" for="inputDefault">Default input</label>
+    <input type="text" class="form-control" placeholder="Default input" id="inputDefault3" [(ngModel)]="puissance">
+    <p>Resultat : <strong>{{ base | PuissancePipe : puissance}}</strong></p>
+  </div>
+
+  <h6>pipe et la detection de changement</h6>
+  <div class="form-group">
+    <label class="col-form-label" for="inputDefault">Default input</label>
+    <input type="text" #employe (keydown.enter)="addEmploye(employe.value); employe.value=''"
+           class="form-control" placeholder="Default input" id="inputDefault4" >
+  </div>
+  <div class="custom-control custom-checkbox">
+    <input [(ngModel)]="emotion" type="checkbox" class="custom-control-input" id="customCheck1" checked="">
+    <label class="custom-control-label" for="customCheck1">Heureux</label>
+  </div>
+  <br>
+  <button type="button" class="btn btn-success" (click)="renitialiser()" >Rénicialiser</button>
+  <p><strong>Tous les employes (no pipe)</strong></p>
+  <div *ngFor="let employe of employes">
+    nom : {{employe.nom}} emotion : {{employe.emotion}}
+  </div>
+  <p><strong>Employes Heureux (pur pipe)</strong></p>
+  <div *ngFor="let employe of (employes | EmployesHeureux)">
+    nom : {{employe.nom}} emotion : {{employe.emotion}}
+  </div>
+  <p><strong>Employes Heureux (impur pipe)</strong></p>
+  <div *ngFor="let employe of (employes | EmployesHeureuxImpur)">
+    nom : {{employe.nom}} emotion : {{employe.emotion}}
+  </div>
+  <h4>{{title5}}</h4>
+  <div id="id1" [appColor]="color">
+      hello with derective personaliser in id1
+  </div>
+  <div id="id2" [appColor]="color">
+      hello with derective personaliser in id2
+  </div>
+  <h4>{{title6}}</h4>
+  <div>
+    <ul *ngFor="let emp of  list">
+      <li></li><li>{{emp.nom}}</li><li>{{emp.prenom}}</li><li>{{emp.age}}</li><li>{{emp.emotion}}</li>
+    </ul>
+  </div>
+
+  <button type="button" class="btn btn-success" (click)="addEmp()" >ajouter emp par post</button>
+
+  <div class="form-group">
+    <label class="col-form-label" for="inputDefault">emp to delete with delete</label>
+    <input type="number" class="form-control" placeholder="Default input" id="inputDefault5" [(ngModel)]="id">
+  </div>
+  <button type="button" class="btn btn-success" (click)="deleteEmp()" >delete emp par post</button>
+</div>

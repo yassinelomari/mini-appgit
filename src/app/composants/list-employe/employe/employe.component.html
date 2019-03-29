@@ -1,0 +1,14 @@
+<div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+  <div class="card-header">employe compoment</div>
+  <div class="card-body">
+    <h4 class="card-title">identifiant : {{idf}}</h4>
+    <p class="card-text"> nom :{{employe?.nom}} <br> prenom : {{employe?.prenom}} <br>
+      age :{{employe?.age}} <br> emotion : {{employe?.emotion}} </p>
+  </div>
+  <div class="form-group">
+    <!--<button type="button" class="btn btn-success" disabled="{{disableBtn}}" (click)="pres(true)" >Present</button>
+    <button type="button" class="btn btn-danger" disabled="{{disableBtn}}" (click)="pres(false)">Absent</button>-->
+    <button type="button" class="btn btn-success" [disabled]="disableBtn" (click)="pres(true)" >Present</button>
+    <button type="button" class="btn btn-danger" [disabled]="disableBtn" (click)="pres(false)">Absent</button>
+  </div>
+</div>

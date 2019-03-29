@@ -1,0 +1,32 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "nom": "yassin",
+      "prenom": "toto",
+      "age": 0,
+      "emotion": "happy"
+    },
+    {
+      "id": 2,
+      "nom": "toto32",
+      "prenom": "toto",
+      "age": 0,
+      "emotion": "happy"
+    },
+    {
+      "id": 3,
+      "nom": "toto32",
+      "prenom": "toto",
+      "age": 0,
+      "emotion": "happy"
+    },
+    {
+      "nom": "kkk",
+      "prenom": "kkk",
+      "age": 0,
+      "emotion": "",
+      "id": 4
+    }
+  ]
+}

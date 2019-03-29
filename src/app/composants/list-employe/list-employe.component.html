@@ -1,0 +1,7 @@
+<h1>{{title}} </h1>
+<h3>present : {{listPresent.length}}</h3>
+<h3>absent : {{listAbsent.length}}</h3>
+<div class="row ctn">
+
+  <app-employe class="col-4" *ngFor="let emp of list ; let i=index " [employe]="emp" [id]="i" (estPresent)="conter(i,$event)" ></app-employe>
+</div>
